@@ -2,7 +2,7 @@
 {
     using System;
     using System.Collections;
-    using NUnit.Framework; 
+    using NUnit.Framework;
     using Spatial.Euclidean;
     using Spatial.Units;
 
@@ -141,6 +141,50 @@
             Assert.AreEqual(expected, eulerAngles);
         }
 
+        [Test]
+        public void FromAnglesTest()
+        {
+            var angle = new EulerAngles(Angle.FromDegrees(0), Angle.FromDegrees(0), Angle.FromDegrees(0));
+            var result = new Quaternion(angle);
+            Assert.AreEqual(1, result.Real);
+            Assert.AreEqual(0, result.ImagX);
+            Assert.AreEqual(0, result.ImagY);
+            Assert.AreEqual(0, result.ImagZ);
+
+
+            angle = new EulerAngles(Angle.FromDegrees(180), Angle.FromDegrees(0), Angle.FromDegrees(0));
+            result = new Quaternion(angle);
+            Assert.AreEqual(0, result.Real, Math.Pow(10, -10));
+            Assert.AreEqual(1, result.ImagX, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagY, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagZ, Math.Pow(10, -10));
+
+
+            angle =
+            new EulerAngles(Angle.FromDegrees(0), Angle.FromDegrees(180), Angle.FromDegrees(0));
+            result = new Quaternion(angle);
+            Assert.AreEqual(0, result.Real, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagX, Math.Pow(10, -10));
+            Assert.AreEqual(1, result.ImagY, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagZ, Math.Pow(10, -10));
+
+
+            angle = new EulerAngles(Angle.FromDegrees(0), Angle.FromDegrees(0), Angle.FromDegrees(180));
+            result = new Quaternion(angle);
+            Assert.AreEqual(0, result.Real, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagX, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagY, Math.Pow(10, -10));
+            Assert.AreEqual(1, result.ImagZ, Math.Pow(10, -10));
+
+
+            angle = new EulerAngles(Angle.FromDegrees(90), Angle.FromDegrees(90), Angle.FromDegrees(90));
+            result = new Quaternion(angle);
+            Assert.AreEqual(0, result.Real, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagX, Math.Pow(10, -10));
+            Assert.AreEqual(0.7071067811863472, result.ImagY, Math.Pow(10, -10));
+            Assert.AreEqual(0, result.ImagZ, Math.Pow(10, -10));
+        }
+
         public class QuaternionCalculationTestClass
         {
             private static double bigNumber = Math.Pow(10, 200);
@@ -237,7 +281,7 @@
 
                     yield return new TestCaseData(q2, 9.0).Returns(q2 * q2 * q2 * q2 * q2 * q2 * q2 * q2 * q2);
                     yield return new TestCaseData(q2, 3.0).Returns(q2 * q2 * q2);
-                    yield return new TestCaseData(q3, 9.0).Returns(q3 * q3 * q3 * q3 * q3 * q3 * q3 * q3 * q3); 
+                    yield return new TestCaseData(q3, 9.0).Returns(q3 * q3 * q3 * q3 * q3 * q3 * q3 * q3 * q3);
 
 
                 }
@@ -384,6 +428,6 @@
                 Assert.Throws<InvalidOperationException>(delegate { quat.RotateUnitQuaternion(nonRotation); });
 
             }
-        }
+        } 
     }
 }
