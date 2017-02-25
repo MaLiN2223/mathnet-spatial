@@ -428,11 +428,6 @@
                 Assert.Throws<InvalidOperationException>(delegate { quat.RotateUnitQuaternion(nonRotation); });
 
             }
-        }
-        [TestCase()]
-        public void FromRPY(float a, float b, float c)
-        {
-
-        }
+        } 
     }
 }
